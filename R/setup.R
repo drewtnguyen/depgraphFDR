@@ -63,14 +63,14 @@ graphical_procedure_setup <- function(alpha, pvals, adjlist, block = NULL){
     }
 
     comps_connected = logical(nc)
-    for(k in 1:nc){
+    for(k in seq_len(nc)){
         comp_ig = igraph::induced_subgraph(BH_ig, comps_noname[[k]])
         comps_connected[k] = is_complete(comp_ig)
     }
 
     # Get the mininum p-values
     pmins = logical(nc)
-    for(k in 1:nc){
+    for(k in seq_len(nc)){
         # get the indices of the BH vertices in the kth component
         idx = comps_noname[[k]]
         # extract the minimum p-value and add to list

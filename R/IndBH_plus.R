@@ -2,6 +2,10 @@ IndBH_plus <- function(recurse = 1,
                         alpha, pvals, adjlist, block = NULL){
     # Build a cache
     cached_results = build_cache(alpha, pvals, adjlist, block)
+    if(cached_results$setup$nc == 0){
+        message("BH made no rejections.")
+        return(integer(0))  
+    } 
     # Run IndBH_plus based on cache
     return(.IndBH_plus(recurse = recurse, cached_results))
 }

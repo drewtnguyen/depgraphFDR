@@ -32,13 +32,11 @@ IndBH_neg_check <- function(setup, Ntot){
 
     thrs = 1:length(setup$BH_idx)
 
-    # TODO: Note this is analogous to a certain characterization of Rbh:
-    # the max r such that #(p-values < alpha r /m) >= r.
     if(all(thrs > Ntot)){
         R_UB = 0
     }
     else{
-        R_UB = max(which(thrs <= Ntot))
+        R_UB = max(which(thrs <= Ntot), -Inf)
     }
     return(which(use_pvals > alpha * R_UB / m))
 }
@@ -52,7 +50,7 @@ IndBH_pos_check_coarse <- function(setup, Ntot, Nplus){
 
     thrs = 1:length(BH_idx)
 
-    R_LB = max(which(thrs <= Ntot - Nplus + 1))
+    R_LB = max(which(thrs <= Ntot - Nplus + 1), -Inf)
     return(which(use_pvals <= alpha * R_LB / m))
 }
 
@@ -83,7 +81,7 @@ IndBH_pos_check_fine <- function(setup, ivs_lst, Ns,
         N_no_k = Ntot - Nk + 1
         # Set R_LB[comp] to the computed max.
         # The skipped ones will be zero, which is fine.
-        R_LB[comp] = max(which(thrs <= N_no_k))
+        R_LB[comp] = max(which(thrs <= N_no_k), -Inf)
     }
     return(which(use_pvals <= alpha * R_LB / m))
 }
@@ -116,7 +114,7 @@ IndBH_full_calculation <- function(rejectable, cached_results){
                            inclusion_restriction = i)
         Nk = Ns$Nlist[[k]]
         # The skipped ones will be zero, which is fine.
-        R_true[i] = max(which(thrs <= Ntot - Nk + N_i))
+        R_true[i] = max(which(thrs <= Ntot - Nk + N_i), -Inf)
     }
     return(which(use_pvals <= alpha * R_true / m))
 }
