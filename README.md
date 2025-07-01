@@ -1,7 +1,7 @@
-This is the `R` package that implements the procedures 
-in INSERT URL HERE.
+This `R` package implements the procedures 
+from the paper "Controlling the false discovery rate under a non-parametric graphical dependence model", pre-print at <https://arxiv.org/abs/2506.24126>.  
 
-Install in `R` 
+Install in `R`:
 ```{r}
 devtools::install_github("drewtnguyen/depgraphFDR")
 ```
